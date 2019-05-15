@@ -1,5 +1,6 @@
 local is_paused = false
 local mini = 0
+local IS_DEV = true
 
 local function unloadmusic()
 	print("unloadmusic")
@@ -19,11 +20,12 @@ function init(self)
 	go.animate("/go3", "position.y", go.PLAYBACK_LOOP_PINGPONG, 150, go.EASING_OUTCUBIC, 0.5)
 	go.animate("/go4", "position.y", go.PLAYBACK_LOOP_PINGPONG, 550, go.EASING_OUTCUBIC, 0.5)
 
-	player.build_path("/Users/selimanac/Development/Defold/Native Extension/defold-raudio/res/common")
-
+	if IS_DEV then
+		player.build_path("/Users/selimanac/Development/Defold/Native Extension/defold-raudio/res/common")
+	end
 	mini = player.load_music("/audio/mini.xm")
 
-	local mm = player.load_music("/audio/chiptune_3.mod")
+	local mm = player.load_music("/audio/blind_justice.mod")
 	player.play_music(mm)
 	player.music_volume(mm, 0.5)
 	pprint(mini)

@@ -139,7 +139,7 @@ Sound LoadSoundFromWave(Wave wave);                             // Load sound fr
 void UpdateSound(Sound sound, const void *data, int samplesCount);// Update sound buffer with new data
 void UnloadWave(Wave wave);                                     // Unload wave data
 void UnloadSound(Sound sound);                                  // Unload sound
-void PlaySound(Sound sound);                                    // Play a sound
+//void PlaySound(Sound sound);                                    // Play a sound
 void PauseSound(Sound sound);                                   // Pause a sound
 void ResumeSound(Sound sound);                                  // Resume a paused sound
 void StopSound(Sound sound);                                    // Stop playing a sound

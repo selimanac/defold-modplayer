@@ -1,10 +1,7 @@
 #define LIB_NAME "modplayer"
 #define MODULE_NAME "player"
 
-// include the Defold SDK
 #include "modplayer_private.h"
-
-//bool is_playing = false;
 
 static int buildpath(lua_State *L)
 {
@@ -17,7 +14,6 @@ static int buildpath(lua_State *L)
 static int unloadmusic(lua_State *L)
 {
     int top = lua_gettop(L);
-
     key = luaL_checkint(L, 1);
     iPod *vals = ht.Get(key);
     if (vals->is_playing)
@@ -26,6 +22,8 @@ static int unloadmusic(lua_State *L)
         vals->is_playing = false;
     }
     UnloadMusicStream(*vals->music);
+    delete vals->music;
+    ht.Erase(key);
 
     return 0;
 }
@@ -187,11 +185,11 @@ static const luaL_reg Module_methods[] =
         {"music_pitch", musicpitch},          // *
         {"music_volume", musicvolume},        // *
         {"is_music_playing", ismusicplaying}, // *
-        {"stop_music", stopmusic}, // *
-        {"resume_music", resumemusic}, // *
-        {"pause_music", pausemusic},   // *
-        {"play_music", playmusic},     // *
-        {"load_music", loadmusic},     // *
+        {"stop_music", stopmusic},            // *
+        {"resume_music", resumemusic},        // *
+        {"pause_music", pausemusic},          // *
+        {"play_music", playmusic},            // *
+        {"load_music", loadmusic},            // *
         {"unload_music", unloadmusic},
         {"master_volume", mastervolume}, // *
         {"build_path", buildpath},       // *
@@ -250,6 +248,7 @@ dmExtension::Result AppFinalizeModPlayer(dmExtension::AppParams *params)
 dmExtension::Result FinalizeModPlayer(dmExtension::Params *params)
 {
     CloseAudioDevice();
+    free(mem);
     return dmExtension::RESULT_OK;
 }
 

@@ -3,13 +3,14 @@
 #include <dmsdk/sdk.h>
 
 #include "raudio.h" // raylib audio library
-#include <stdio.h>  // Required for: printf()
-#include <string.h>
-//#include <pthread.h>
+//#include <stdio.h>  // Required for: printf()
+//#include <string.h>
+#include <stdlib.h>
 #include "jc/hashtable.h"
 
 static const char *path;
 
+// Hash table
 struct iPod
 {
     bool is_playing;
@@ -26,9 +27,10 @@ static hashtable_t ht;
 static hashtable_t::Iterator it = ht.Begin();
 static hashtable_t::Iterator itend = ht.End();
 
+// Music
 static Music *music;
 static int music_count = 0;
 static int key = 0;
 
-
+//Paths
 extern char *modplayer_init();

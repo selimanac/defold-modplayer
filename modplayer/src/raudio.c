@@ -1,3 +1,4 @@
+#if defined(DM_PLATFORM_LINUX) || defined(DM_PLATFORM_WINDOWS)
 /**********************************************************************************************
 *
 *   raudio - A simple and easy-to-use audio library based on miniaudio
@@ -80,7 +81,7 @@
 #define MA_NO_JACK
 #define MINIAUDIO_IMPLEMENTATION
 #include "external/miniaudio.h" // miniaudio library
-#undef PlaySound                // Win32 API: windows.h > mmsystem.h defines PlaySound macro
+//#undef PlaySound              // Win32 API: windows.h > mmsystem.h defines PlaySound macro
 
 #include <stdlib.h>             // Required for: malloc(), free()
 #include <string.h>             // Required for: strcmp(), strncmp()
@@ -961,11 +962,12 @@ void ExportWaveAsCode(Wave wave, const char *fileName)
 }
 
 // Play a sound
-void PlaySound(Sound sound)
+/*
+void PlaySoundW(Sound sound)
 {
     PlayAudioBuffer((AudioBuffer *)sound.audioBuffer);
 }
-
+*/
 // Pause a sound
 void PauseSound(Sound sound)
 {
@@ -1999,3 +2001,4 @@ void TraceLog(int msgType, const char *text, ...)
 #endif
 
 #undef AudioBuffer
+#endif

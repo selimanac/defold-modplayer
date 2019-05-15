@@ -448,6 +448,8 @@ Throughout miniaudio you will see references to different sample formats:
 extern "C" {
 #endif
 
+
+
 #if defined(_MSC_VER)
     #pragma warning(push)
     #pragma warning(disable:4201)   // nonstandard extension used: nameless struct/union
@@ -459,6 +461,8 @@ extern "C" {
 
 // Platform/backend detection.
 #ifdef _WIN32
+   
+    
     #define MA_WIN32
     #if defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_PC_APP || WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
         #define MA_WIN32_UWP
@@ -3064,7 +3068,7 @@ ma_uint64 ma_sine_wave_read_f32_ex(ma_sine_wave* pSineWave, ma_uint64 frameCount
     #if defined(_MSC_VER) && !defined(__clang__)
         // MSVC.
         #if !defined(MA_NO_SSE2)   // Assume all MSVC compilers support SSE2 intrinsics.
-            #define MA_SUPPORT_SSE2
+          //  #define MA_SUPPORT_SSE2
         #endif
         //#if _MSC_VER >= 1600 && !defined(MA_NO_AVX)    // 2010
         //    #define MA_SUPPORT_AVX
@@ -3078,7 +3082,7 @@ ma_uint64 ma_sine_wave_read_f32_ex(ma_sine_wave* pSineWave, ma_uint64 frameCount
     #else
         // Assume GNUC-style.
         #if defined(__SSE2__) && !defined(MA_NO_SSE2)
-            #define MA_SUPPORT_SSE2
+           // #define MA_SUPPORT_SSE2
         #endif
         //#if defined(__AVX__) && !defined(MA_NO_AVX)
         //    #define MA_SUPPORT_AVX
@@ -3094,7 +3098,7 @@ ma_uint64 ma_sine_wave_read_f32_ex(ma_sine_wave* pSineWave, ma_uint64 frameCount
     // If at this point we still haven't determined compiler support for the intrinsics just fall back to __has_include.
     #if !defined(__GNUC__) && !defined(__clang__) && defined(__has_include)
         #if !defined(MA_SUPPORT_SSE2)   && !defined(MA_NO_SSE2)   && __has_include(<emmintrin.h>)
-            #define MA_SUPPORT_SSE2
+          //  #define MA_SUPPORT_SSE2
         #endif
         //#if !defined(MA_SUPPORT_AVX)    && !defined(MA_NO_AVX)    && __has_include(<immintrin.h>)
         //    #define MA_SUPPORT_AVX
