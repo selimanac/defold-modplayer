@@ -1,4 +1,4 @@
-#if defined(DM_PLATFORM_LINUX) || defined(DM_PLATFORM_WINDOWS)
+#if defined(DM_PLATFORM_LINUX) || defined(DM_PLATFORM_WINDOWS) || defined(DM_PLATFORM_HTML5) 
 /**********************************************************************************************
 *
 *   raudio - A simple and easy-to-use audio library based on miniaudio
