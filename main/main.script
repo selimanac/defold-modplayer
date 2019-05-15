@@ -1,5 +1,15 @@
 local is_paused = false
+local mini = 0
 
+local function unloadmusic()
+	print("unloadmusic")
+	player.unload_music(mini)
+end
+
+local function stopmusic()
+	print("Stoppped")
+	player.stop_music(mini)
+end
 function init(self)
 	profiler.enable_ui(true)
 	msg.post(".", "acquire_input_focus")
@@ -8,37 +18,37 @@ function init(self)
 	go.animate("/go2", "position.y", go.PLAYBACK_LOOP_PINGPONG, 350, go.EASING_OUTCUBIC, 0.5)
 	go.animate("/go3", "position.y", go.PLAYBACK_LOOP_PINGPONG, 150, go.EASING_OUTCUBIC, 0.5)
 	go.animate("/go4", "position.y", go.PLAYBACK_LOOP_PINGPONG, 550, go.EASING_OUTCUBIC, 0.5)
-	--local buffer = resource.load("/main/resources/spring.wav")
 
+	player.build_path("/Users/selimanac/Development/Defold/Native Extension/defold-raudio/res/common")
 
-	-- local filen = "/audio/djb_sdm.xm"
-	-- audio.play_music(filen)
-	-- audio.master_volume(1.0)
-	-- print("is music playing:", audio.is_music_playing())
-	-- audio.pause_music()
-	-- print("is music playing:", audio.is_music_playing())
-	-- audio.music_volume(0.5)
-	-- audio.music_pitch(1.0)
+	mini = player.load_music("/audio/mini.xm")
 
-	-- print("Lenght: ", audio.music_lenght())
-	-- is_paused = true
-	
+	local mm = player.load_music("/audio/chiptune_3.mod")
+	player.play_music(mm)
+	player.music_volume(mm, 0.5)
+	pprint(mini)
+	player.play_music(mini)
+	player.music_volume(mini, 1.0)
+	player.music_pitch(mini, 0.5)
+	player.music_loop(mini, 2)
+
+	print("Lenght: ", player.music_lenght(mini))
+	timer.delay(5, false, unloadmusic)
 end
 
 function update(self, dt)
---	print("Time:", audio.music_played())
+	--	print("Played Time: ", player.music_played(mini))
 end
 
 function on_input(self, action_id, action)
 	if action_id == hash("click") and action.pressed then
-	--	print("Click!")
-		-- if is_paused then
-		-- 	audio.resume_music()
-		-- 	is_paused = false
-		-- else
-		-- 	audio.pause_music()
-		-- 	is_paused = true
-		-- end
-		-- print("is music playing:", audio.is_music_playing())
+		if is_paused == false then
+			player.pause_music(mini)
+			is_paused = true
+		else
+			player.resume_music(mini)
+			is_paused = false
+		end
+		pprint(player.is_music_playing(mini))
 	end
 end

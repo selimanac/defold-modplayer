@@ -1,5 +1,5 @@
 #define LIB_NAME "modplayer"
-#define MODULE_NAME "audio"
+#define MODULE_NAME "player"
 
 // include the Defold SDK
 #include "modplayer_private.h"
@@ -10,16 +10,22 @@ static int buildpath(lua_State *L)
 {
     int top = lua_gettop(L);
     path = luaL_checkstring(L, 1);
-
+    dmLogInfo("Audio Path for Defold Build: %s", path);
     return 0;
 }
 
 static int unloadmusic(lua_State *L)
 {
     int top = lua_gettop(L);
-    //Check if playing. If so stop it girst
 
-    
+    key = luaL_checkint(L, 1);
+    iPod *vals = ht.Get(key);
+    if (vals->is_playing)
+    {
+        StopMusicStream(*vals->music);
+        vals->is_playing = false;
+    }
+    UnloadMusicStream(*vals->music);
 
     return 0;
 }
@@ -28,64 +34,71 @@ static int loadmusic(lua_State *L)
 {
     int top = lua_gettop(L);
     const char *str = luaL_checkstring(L, 1);
-    char *three = new char[strlen(path) + strlen(str) + 1];
-    strcpy(three, path);
-    strcat(three, str);
-    dmLogInfo("PATH: %s \n", three);
-    music = LoadMusicStream(three);
+    char *bundlePath = new char[strlen(path) + strlen(str) + 1];
+    strcpy(bundlePath, path);
+    strcat(bundlePath, str);
 
-    // music = LoadMusicStream("/Users/selimanac/Development/Defold/Native Extension/defold-raudio/res/common/audio/djb_sdm.xm");
+    music_count++;
 
-    return 0;
+    music = new Music();
+
+    iPod music_values = {false, music};
+    ht.Put(music_count, music_values);
+
+    iPod *vals = ht.Get(music_count);
+    *vals->music = LoadMusicStream(bundlePath);
+
+    lua_pushinteger(L, music_count);
+    assert(top + 1 == lua_gettop(L));
+    return 1;
 }
 
 static int playmusic(lua_State *L)
 {
-
     int top = lua_gettop(L);
-    is_playing = true;
 
-    PlayMusicStream(music);
-    //  music = LoadMusicStream(str);
-    // PlayMusicStream(music);
+    key = luaL_checkint(L, 1);
+    iPod *vals = ht.Get(key);
 
-    /*
-    uint8_t* bytes = 0x0;
-uint32_t size = 0;
+    if (!vals->is_playing)
+    {
+        PlayMusicStream(*vals->music);
+        vals->is_playing = true;
+    }
 
-
-
-
-    dmScript::LuaHBuffer* sourceLuaBuffer = dmScript::CheckBuffer(L, 1);
-    dmBuffer::Result r = dmBuffer::GetBytes(sourceLuaBuffer->m_Buffer, (void**)&bytes, &size);
-  //  music = LoadMusicStream(&sourceLuaBuffer->m_Buffer);
-    //PlayMusicStream(music);
-   Sound fxWav = LoadWaveEx(r);
-    PlaySound(fxWav);
-    */
     return 0;
 }
 
 static int stopmusic(lua_State *L)
 {
     int top = lua_gettop(L);
-    is_playing = false;
-    StopMusicStream(music);
-
+    key = luaL_checkint(L, 1);
+    iPod *vals = ht.Get(key);
+    if (vals->is_playing)
+    {
+        StopMusicStream(*vals->music);
+        vals->is_playing = false;
+    }
     return 0;
 }
 
 static int resumemusic(lua_State *L)
 {
     int top = lua_gettop(L);
-    ResumeMusicStream(music);
+    key = luaL_checkint(L, 1);
+    iPod *vals = ht.Get(key);
+    ResumeMusicStream(*vals->music);
+    // ResumeMusicStream(music);
     return 0;
 }
 
 static int pausemusic(lua_State *L)
 {
     int top = lua_gettop(L);
-    PauseMusicStream(music);
+    key = luaL_checkint(L, 1);
+    iPod *vals = ht.Get(key);
+    PauseMusicStream(*vals->music);
+
     return 0;
 }
 
@@ -100,32 +113,40 @@ static int mastervolume(lua_State *L)
 static int musicvolume(lua_State *L)
 {
     int top = lua_gettop(L);
-    double volume = luaL_checknumber(L, 1);
-    SetMusicVolume(music, volume);
+    key = luaL_checkint(L, 1);
+    double volume = luaL_checknumber(L, 2);
+    iPod *vals = ht.Get(key);
+    SetMusicVolume(*vals->music, volume);
     return 0;
 }
 
 static int musicpitch(lua_State *L)
 {
     int top = lua_gettop(L);
-    double volume = luaL_checknumber(L, 1);
-    SetMusicPitch(music, volume);
+    key = luaL_checkint(L, 1);
+    double pitch = luaL_checknumber(L, 2);
+    iPod *vals = ht.Get(key);
+    SetMusicPitch(*vals->music, pitch);
     return 0;
 }
 
 static int musicloop(lua_State *L)
 {
     int top = lua_gettop(L);
-    int count = luaL_checkint(L, 1);
-    //SetMusicLoopCount(Music music, int count);
-    SetMusicLoopCount(music, count);
+    key = luaL_checkint(L, 1);
+    int count = luaL_checkint(L, 2);
+    iPod *vals = ht.Get(key);
+    SetMusicLoopCount(*vals->music, count);
+
     return 0;
 }
 
 static int ismusicplaying(lua_State *L)
 {
     int top = lua_gettop(L);
-    bool playing = IsMusicPlaying(music);
+    key = luaL_checkint(L, 1);
+    iPod *vals = ht.Get(key);
+    bool playing = IsMusicPlaying(*vals->music);
     lua_pushboolean(L, playing);
     assert(top + 1 == lua_gettop(L));
     return 1;
@@ -134,7 +155,10 @@ static int ismusicplaying(lua_State *L)
 static int musiclenght(lua_State *L)
 {
     int top = lua_gettop(L);
-    double length = GetMusicTimeLength(music);
+    key = luaL_checkint(L, 1);
+    iPod *vals = ht.Get(key);
+
+    double length = GetMusicTimeLength(*vals->music);
 
     lua_pushnumber(L, length);
     assert(top + 1 == lua_gettop(L));
@@ -144,7 +168,9 @@ static int musiclenght(lua_State *L)
 static int musicplayed(lua_State *L)
 {
     int top = lua_gettop(L);
-    double length = GetMusicTimePlayed(music);
+    key = luaL_checkint(L, 1);
+    iPod *vals = ht.Get(key);
+    double length = GetMusicTimePlayed(*vals->music);
 
     lua_pushnumber(L, length);
     assert(top + 1 == lua_gettop(L));
@@ -155,20 +181,20 @@ static int musicplayed(lua_State *L)
 static const luaL_reg Module_methods[] =
     {
 
-        {"music_played", musicplayed},
-        {"music_lenght", musiclenght},
-        {"music_loop", musicloop},
-        {"music_pitch", musicpitch},
-        {"music_volume", musicvolume},
-        {"is_music_playing", ismusicplaying},
-        {"stop_music", stopmusic},
-        {"resume_music", resumemusic},
-        {"pause_music", pausemusic},
-        {"play_music", playmusic},
-        {"load_music", loadmusic},
+        {"music_played", musicplayed},        // *
+        {"music_lenght", musiclenght},        // *
+        {"music_loop", musicloop},            // *
+        {"music_pitch", musicpitch},          // *
+        {"music_volume", musicvolume},        // *
+        {"is_music_playing", ismusicplaying}, // *
+        {"stop_music", stopmusic}, // *
+        {"resume_music", resumemusic}, // *
+        {"pause_music", pausemusic},   // *
+        {"play_music", playmusic},     // *
+        {"load_music", loadmusic},     // *
         {"unload_music", unloadmusic},
-        {"master_volume", mastervolume},
-        {"build_path", buildpath},
+        {"master_volume", mastervolume}, // *
+        {"build_path", buildpath},       // *
         {0, 0}};
 
 static void LuaInit(lua_State *L)
@@ -184,7 +210,7 @@ static void LuaInit(lua_State *L)
 
 dmExtension::Result AppInitializeModPlayer(dmExtension::AppParams *params)
 {
-    dmLogInfo("AppInitializeModPlayer\n");
+    dmLogInfo("AppInitializeModPlayer");
     ht.Create(numelements, mem);
     InitAudioDevice();
     return dmExtension::RESULT_OK;
@@ -193,10 +219,10 @@ dmExtension::Result AppInitializeModPlayer(dmExtension::AppParams *params)
 dmExtension::Result InitializeModPlayer(dmExtension::Params *params)
 {
     LuaInit(params->m_L);
-    dmLogInfo("Registered %s Extension\n", MODULE_NAME);
+    dmLogInfo("Registered %s Extension", MODULE_NAME);
 
     path = modplayer_init();
-    dmLogInfo("Audio Path: %s\n", path);
+    dmLogInfo("Audio Path: %s", path);
 
     return dmExtension::RESULT_OK;
 }

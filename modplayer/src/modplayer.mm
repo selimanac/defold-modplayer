@@ -1,8 +1,7 @@
-#define DLIB_LOG_DOMAIN "miniaudio"
 #include <dmsdk/sdk.h>
 #import <Foundation/Foundation.h>
 
-char*  miniaudio_init()
+char*  modplayer_init()
 {
   
      const char *bundlePath = [[[NSBundle mainBundle] bundlePath] UTF8String];

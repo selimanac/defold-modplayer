@@ -27,5 +27,8 @@ static hashtable_t::Iterator it = ht.Begin();
 static hashtable_t::Iterator itend = ht.End();
 
 static Music *music;
+static int music_count = 0;
+static int key = 0;
 
-extern char *miniaudio_init();
+
+extern char *modplayer_init();
