@@ -1,0 +1,44 @@
+local is_paused = false
+
+function init(self)
+	profiler.enable_ui(true)
+	msg.post(".", "acquire_input_focus")
+
+	go.animate("/go1", "position.y", go.PLAYBACK_LOOP_PINGPONG, 150, go.EASING_OUTCUBIC, 0.5)
+	go.animate("/go2", "position.y", go.PLAYBACK_LOOP_PINGPONG, 350, go.EASING_OUTCUBIC, 0.5)
+	go.animate("/go3", "position.y", go.PLAYBACK_LOOP_PINGPONG, 150, go.EASING_OUTCUBIC, 0.5)
+	go.animate("/go4", "position.y", go.PLAYBACK_LOOP_PINGPONG, 550, go.EASING_OUTCUBIC, 0.5)
+	--local buffer = resource.load("/main/resources/spring.wav")
+
+
+	-- local filen = "/audio/djb_sdm.xm"
+	-- audio.play_music(filen)
+	-- audio.master_volume(1.0)
+	-- print("is music playing:", audio.is_music_playing())
+	-- audio.pause_music()
+	-- print("is music playing:", audio.is_music_playing())
+	-- audio.music_volume(0.5)
+	-- audio.music_pitch(1.0)
+
+	-- print("Lenght: ", audio.music_lenght())
+	-- is_paused = true
+	
+end
+
+function update(self, dt)
+--	print("Time:", audio.music_played())
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("click") and action.pressed then
+	--	print("Click!")
+		-- if is_paused then
+		-- 	audio.resume_music()
+		-- 	is_paused = false
+		-- else
+		-- 	audio.pause_music()
+		-- 	is_paused = true
+		-- end
+		-- print("is music playing:", audio.is_music_playing())
+	end
+end
