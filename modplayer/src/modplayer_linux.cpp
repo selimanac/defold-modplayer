@@ -1,13 +1,11 @@
 #include <dmsdk/sdk.h>
 
 #if defined(DM_PLATFORM_LINUX)
-#include <stdlib.h>
 
+#include <stdlib.h>
 #include <unistd.h>
 #include <libgen.h>
 #include <sys/auxv.h>
-
-
 
 static char* copy_string(const char * s)
 {
@@ -15,7 +13,6 @@ static char* copy_string(const char * s)
     strcpy(newString, s);
     return newString;
 }
-
 
 char *modplayer_init()
 {

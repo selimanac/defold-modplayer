@@ -1,14 +1,11 @@
 #pragma once
 
 #include <dmsdk/sdk.h>
-
-#include "raudio.h" // raylib audio library
-//#include <stdio.h>  // Required for: printf()
-//#include <string.h>
+#include "raudio.h" 
 #include <stdlib.h>
 #include "jc/hashtable.h"
 
-static const char *path;
+
 
 // Hash table
 struct iPod
@@ -29,8 +26,10 @@ static hashtable_t::Iterator itend = ht.End();
 
 // Music
 static Music *music;
+static iPod* vals;
 static int music_count = 0;
 static int key = 0;
 
 //Paths
+static const char *path;
 extern char *modplayer_init();

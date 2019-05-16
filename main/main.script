@@ -12,23 +12,18 @@ local function stopmusic()
 	player.stop_music(mini)
 end
 function init(self)
-	profiler.enable_ui(true)
+	profiler.enable_ui(false)
 	msg.post(".", "acquire_input_focus")
-
-	go.animate("/go1", "position.y", go.PLAYBACK_LOOP_PINGPONG, 150, go.EASING_OUTCUBIC, 0.5)
-	go.animate("/go2", "position.y", go.PLAYBACK_LOOP_PINGPONG, 350, go.EASING_OUTCUBIC, 0.5)
-	go.animate("/go3", "position.y", go.PLAYBACK_LOOP_PINGPONG, 150, go.EASING_OUTCUBIC, 0.5)
-	go.animate("/go4", "position.y", go.PLAYBACK_LOOP_PINGPONG, 550, go.EASING_OUTCUBIC, 0.5)
 
 	if IS_DEV then
 		player.build_path("/Users/selimanac/Development/Defold/Native Extension/defold-raudio/res/common")
 	end
-	mini = player.load_music("/audio/mini.xm")
 
+	mini = player.load_music("/audio/djb_sdm.xm")
 	local mm = player.load_music("/audio/blind_justice.mod")
+
 	player.play_music(mm)
-	player.music_volume(mm, 0.5)
-	pprint(mini)
+	player.music_volume(mm, 0.2)
 	player.play_music(mini)
 	player.music_volume(mini, 1.0)
 	player.music_pitch(mini, 0.5)
