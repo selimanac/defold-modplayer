@@ -1,4 +1,4 @@
-#if defined(DM_PLATFORM_LINUX) || defined(DM_PLATFORM_WINDOWS) || defined(DM_PLATFORM_HTML5)  
+#if defined(DM_PLATFORM_LINUX) || defined(DM_PLATFORM_WINDOWS) || defined(DM_PLATFORM_HTML5)  || defined(DM_PLATFORM_ANDROID)  
 
 #define RAUDIO_STANDALONE
 #define SUPPORT_FILEFORMAT_MOD

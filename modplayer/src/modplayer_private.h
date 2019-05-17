@@ -32,4 +32,5 @@ static int key = 0;
 
 //Paths
 static const char *path;
-extern char *modplayer_init();
+
+extern const char *modplayer_init();

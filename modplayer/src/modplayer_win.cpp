@@ -1,9 +1,11 @@
 #include <dmsdk/sdk.h>
 
 #if defined(DM_PLATFORM_WINDOWS)
+
+// This code is a paort of the DefOS: https://github.com/subsoap/defos
 #include <Windows.h>
 
-char *modplayer_init()
+const char *modplayer_init()
 {
     char *bundlePath = (char *)malloc(MAX_PATH);
     size_t ret = GetModuleFileNameA(GetModuleHandle(NULL), bundlePath, MAX_PATH);

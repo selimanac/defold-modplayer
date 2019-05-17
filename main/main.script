@@ -1,6 +1,6 @@
 local is_paused = false
 local mini = 0
-local IS_DEV = true
+local IS_DEV = false
 
 local function unloadmusic()
 	print("unloadmusic")
@@ -23,14 +23,14 @@ function init(self)
 	local mm = player.load_music("/audio/blind_justice.mod")
 
 	player.play_music(mm)
-	player.music_volume(mm, 0.2)
+	player.music_volume(mm, 1.0)
 	player.play_music(mini)
 	player.music_volume(mini, 1.0)
 	player.music_pitch(mini, 0.5)
 	player.music_loop(mini, 2)
 
 	print("Lenght: ", player.music_lenght(mini))
-	timer.delay(5, false, unloadmusic)
+	--timer.delay(5, false, unloadmusic)
 end
 
 function update(self, dt)

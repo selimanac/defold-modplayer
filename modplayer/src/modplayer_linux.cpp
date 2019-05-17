@@ -2,6 +2,7 @@
 
 #if defined(DM_PLATFORM_LINUX)
 
+// This code is a paort of the DefOS: https://github.com/subsoap/defos
 #include <stdlib.h>
 #include <unistd.h>
 #include <libgen.h>
@@ -14,9 +15,9 @@ static char* copy_string(const char * s)
     return newString;
 }
 
-char *modplayer_init()
+const char *modplayer_init()
 {
-    char *result;
+    const char *result;
     char *path = (char *)malloc(PATH_MAX + 2);
     ssize_t ret = readlink("/proc/self/exe", path, PATH_MAX + 2);
     if (ret >= 0 && ret <= PATH_MAX + 1)
