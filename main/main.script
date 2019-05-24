@@ -1,18 +1,25 @@
 local is_paused = false
 local mini = 0
-local IS_DEV = false
+local IS_DEV = true
 
 local function unloadmusic()
 	print("unloadmusic")
 	player.unload_music(mini)
 end
 
+local function playmusic()
+	print("Play")
+	player.play_music(mini)
+end
+
 local function stopmusic()
 	print("Stoppped")
 	player.stop_music(mini)
-end
+	timer.delay(2, false, playmusic)
+end 
 function init(self)
-	profiler.enable_ui(false)
+	--profiler.enable_ui(true)
+	go.animate("/go1", "position.y", go.PLAYBACK_LOOP_PINGPONG, 50, go.EASING_INBACK, 1)
 	msg.post(".", "acquire_input_focus")
 
 	if IS_DEV then
@@ -20,17 +27,19 @@ function init(self)
 	end
 
 	mini = player.load_music("/audio/djb_sdm.xm")
-	local mm = player.load_music("/audio/blind_justice.mod")
+	-- local mm = player.load_music("/audio/blind_justice.mod")
 
-	player.play_music(mm)
-	player.music_volume(mm, 1.0)
 	player.play_music(mini)
-	player.music_volume(mini, 1.0)
-	player.music_pitch(mini, 0.5)
-	player.music_loop(mini, 2)
 
-	print("Lenght: ", player.music_lenght(mini))
-	--timer.delay(5, false, unloadmusic)
+	--player.music_volume(mini, 1.0)
+	player.xm_volume(mini, 2.5, 0.15)
+	-- player.play_music(mini)
+
+	-- player.music_pitch(mini, 0.5)
+	-- player.music_loop(mini, 2)
+
+	-- print("Lenght: ", player.music_lenght(mini))
+	 timer.delay(2, false, stopmusic)
 end
 
 function update(self, dt)
@@ -38,14 +47,14 @@ function update(self, dt)
 end
 
 function on_input(self, action_id, action)
-	if action_id == hash("click") and action.pressed then
-		if is_paused == false then
-			player.pause_music(mini)
-			is_paused = true
-		else
-			player.resume_music(mini)
-			is_paused = false
-		end
-		pprint(player.is_music_playing(mini))
-	end
+	-- if action_id == hash("click") and action.pressed then
+	-- 	if is_paused == false then
+	-- 		player.pause_music(mini)
+	-- 		is_paused = true
+	-- 	else
+	-- 		player.resume_music(mini)
+	-- 		is_paused = false
+	-- 	end
+	-- 	pprint(player.is_music_playing(mini))
+	--end
 end

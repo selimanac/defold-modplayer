@@ -25,7 +25,7 @@ static hashtable_t::Iterator it = ht.Begin();
 static hashtable_t::Iterator itend = ht.End();
 
 // Music
-static Music *music;
+static Music music;
 static iPod* vals;
 static int music_count = 0;
 static int key = 0;

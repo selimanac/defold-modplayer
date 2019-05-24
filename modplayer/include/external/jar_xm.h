@@ -650,7 +650,7 @@ int jar_xm_create_context_safe(jar_xm_context_t** ctxp, const char* moddata, siz
 
     ctx->channels = (jar_xm_channel_context_t*)mempool;
     mempool += ctx->module.num_channels * sizeof(jar_xm_channel_context_t);
-    mempool =(char *) ALIGN_PTR(mempool, 16);
+    mempool = (char *)ALIGN_PTR(mempool, 16);
 
     ctx->global_volume = 1.f;
     ctx->amplification = .25f; /* XXX: some bad modules may still clip. Find out something better. */
@@ -788,7 +788,7 @@ uint64_t jar_xm_get_latest_trigger_of_channel(jar_xm_context_t* ctx, uint16_t ch
 #define READ_MEMCPY(ptr, offset, length) memcpy_pad(ptr, length, moddata, moddata_length, offset)
 
 static void memcpy_pad(void* dst, size_t dst_len, const void* src, size_t src_len, size_t offset) {
-    uint8_t* dst_c = (uint8_t *)dst;
+     uint8_t* dst_c = (uint8_t *)dst;
     const uint8_t* src_c = (uint8_t *) src;
 
     /* how many bytes can be copied without overrunning `src` */
@@ -1086,7 +1086,7 @@ char* jar_xm_load_module(jar_xm_context_t* ctx, const char* moddata, size_t modd
             instr->panning_envelope.sustain_enabled = flags & (1 << 1);
             instr->panning_envelope.loop_enabled = flags & (1 << 2);
 
-            instr->vibrato_type = (jar_xm_waveform_type_t)READ_U8(offset + 235);
+instr->vibrato_type = (jar_xm_waveform_type_t)READ_U8(offset + 235);
             if(instr->vibrato_type == 2) {
                 instr->vibrato_type = (jar_xm_waveform_type_t)1;
             } else if(instr->vibrato_type == 1) {
@@ -1787,7 +1787,7 @@ static void jar_xm_handle_note_and_instrument(jar_xm_context_t* ctx, jar_xm_chan
             break;
 
         case 4: /* E4y: Set vibrato control */
-        ch->vibrato_waveform = (jar_xm_waveform_type_t) (s->effect_param & 3);
+             ch->vibrato_waveform = (jar_xm_waveform_type_t) (s->effect_param & 3);
             ch->vibrato_waveform_retrigger = !((s->effect_param >> 2) & 1);
             break;
 
@@ -1822,7 +1822,7 @@ static void jar_xm_handle_note_and_instrument(jar_xm_context_t* ctx, jar_xm_chan
             break;
 
         case 7: /* E7y: Set tremolo control */
-        ch->tremolo_waveform = (jar_xm_waveform_type_t) (s->effect_param & 3);
+            ch->tremolo_waveform = (jar_xm_waveform_type_t) (s->effect_param & 3);
             ch->tremolo_waveform_retrigger = !((s->effect_param >> 2) & 1);
             break;
 

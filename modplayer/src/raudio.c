@@ -1,3 +1,42 @@
+/**********************************************************************************************
+*
+*   raudio - A simple and easy-to-use audio library based on mini_al
+*   
+*   
+*   DEPENDENCIES:
+*       miniaudio.h  - Audio device management lib (https://github.com/dr-soft/miniaudio)
+*       jar_xm.h     - XM module file loading
+*       jar_mod.h    - MOD audio file loading
+*
+*   CONTRIBUTORS:
+*       David Reid (github: @mackron) (Nov. 2017):
+*           - Complete port to mini_al library
+*
+*       Joshua Reisenauer (github: @kd7tck) (2015)
+*           - XM audio module support (jar_xm)
+*           - MOD audio module support (jar_mod)
+*
+*   LICENSE: zlib/libpng
+*
+*   Copyright (c) 2014-2019 Ramon Santamaria (@raysan5)
+*
+*   This software is provided "as-is", without any express or implied warranty. In no event
+*   will the authors be held liable for any damages arising from the use of this software.
+*
+*   Permission is granted to anyone to use this software for any purpose, including commercial
+*   applications, and to alter it and redistribute it freely, subject to the following restrictions:
+*
+*     1. The origin of this software must not be misrepresented; you must not claim that you
+*     wrote the original software. If you use this software in a product, an acknowledgment
+*     in the product documentation would be appreciated but is not required.
+*
+*     2. Altered source versions must be plainly marked as such, and must not be misrepresented
+*     as being the original software.
+*
+*     3. This notice may not be removed or altered from any source distribution.
+*
+**********************************************************************************************/
+
 #if defined(DM_PLATFORM_LINUX) || defined(DM_PLATFORM_WINDOWS) || defined(DM_PLATFORM_HTML5)  || defined(DM_PLATFORM_ANDROID)  
 
 #define RAUDIO_STANDALONE
@@ -676,6 +715,7 @@ Music LoadMusicStream(const char *fileName)
 
         if (!result) // XM context created successfully
         {
+
             jar_xm_set_max_loop_count(music->ctxXm, 0); // Set infinite number of loops
 
             // NOTE: Only stereo is supported for XM
@@ -689,7 +729,9 @@ Music LoadMusicStream(const char *fileName)
             TraceLog(LOG_INFO, "[%s] XM track length: %11.6f sec", fileName, (float)music->totalSamples / 48000.0f);
         }
         else
+        {
             musicLoaded = false;
+        }
     }
     else if (IsFileExtension(fileName, ".mod"))
     {
@@ -697,6 +739,7 @@ Music LoadMusicStream(const char *fileName)
 
         if (jar_mod_load_file(&music->ctxMod, fileName))
         {
+
             // NOTE: Only stereo is supported for MOD
             music->stream = InitAudioStream(48000, 16, 2);
             music->totalSamples = (unsigned int)jar_mod_max_samples(&music->ctxMod);
@@ -708,20 +751,24 @@ Music LoadMusicStream(const char *fileName)
             TraceLog(LOG_INFO, "[%s] MOD track length: %11.6f sec", fileName, (float)music->totalSamples / 48000.0f);
         }
         else
+        {
             musicLoaded = false;
+        }
     }
 
     else
+    {
         musicLoaded = false;
+    }
 
     if (!musicLoaded)
     {
-
-        if (music->ctxType == MUSIC_MODULE_XM)
+        if (IsFileExtension(fileName, ".xm"))
         {
+
             jar_xm_free_context(music->ctxXm);
         }
-        else if (music->ctxType == MUSIC_MODULE_MOD)
+        else if (IsFileExtension(fileName, ".mod"))
         {
             jar_mod_unload(&music->ctxMod);
         }
@@ -729,7 +776,7 @@ Music LoadMusicStream(const char *fileName)
         RL_FREE(music);
         music = NULL;
 
-        TraceLog(LOG_WARNING, "[%s] Music file could not be opened", fileName);
+        TraceLog(LOG_WARNING, " Music file could not be opened [%s]", fileName);
     }
 
     return music;
@@ -755,8 +802,22 @@ void UnloadMusicStream(Music music)
     RL_FREE(music);
 }
 
+void UpdateVolume(Music music, float volume, float amplification)
+{
+
+    if (music != NULL)
+    {
+        if (music->ctxType == MUSIC_MODULE_XM)
+        {
+
+            music->ctxXm->global_volume = volume;
+            music->ctxXm->amplification = amplification; /* XXX: some bad modules may still clip. Find out something better. */
+        }
+    }
+}
+
 // Start music playing (open stream)
-void PlayMusicStream(Music music)
+void PlayMusicStream(Music music) //, float volume, float amplification
 {
     if (music != NULL)
     {
@@ -774,6 +835,12 @@ void PlayMusicStream(Music music)
         //     if (IsMusicPlaying(music)) PlayMusicStream(music);
         ma_uint32 frameCursorPos = audioBuffer->frameCursorPos;
 
+        // if (music->ctxType == MUSIC_MODULE_XM)
+        // {
+
+        //     music->ctxXm->global_volume = volume;
+        //     music->ctxXm->amplification = amplification; /* XXX: some bad modules may still clip. Find out something better. */
+        // }
         PlayAudioStream(music->stream); // <-- This resets the cursor position.
 
         audioBuffer->frameCursorPos = frameCursorPos;
@@ -794,6 +861,27 @@ void ResumeMusicStream(Music music)
         ResumeAudioStream(music->stream);
 }
 
+// Patch for Xm Replay
+void jar_xm_reset(jar_xm_context_t *ctx)
+{
+    for (uint16_t i = 0; i < jar_xm_get_number_of_channels(ctx); i++)
+    {
+
+        jar_xm_cut_note(&ctx->channels[i]);
+    }
+    ctx->current_row = 0;
+    ctx->current_table_index = 0;
+    ctx->current_tick = 0;
+
+    /*  ctx->current_table_index = 0;
+    ctx->current_row = 0;
+    ctx->position_jump = true;
+    ctx->pattern_break = true;
+    ctx->jump_row = 0;
+    jar_xm_post_pattern_change(ctx);
+    */
+}
+
 // Stop music playing (close stream)
 // TODO: To clear a buffer, make sure they have been already processed!
 void StopMusicStream(Music music)
@@ -808,6 +896,7 @@ void StopMusicStream(Music music)
     {
 
     case MUSIC_MODULE_XM: /* TODO: Restart XM context */
+        jar_xm_reset(music->ctxXm);
         break;
 
     case MUSIC_MODULE_MOD:
@@ -1185,9 +1274,10 @@ void TraceLog(int msgType, const char *text, ...)
 
     va_end(args);
 
-    if (msgType == LOG_ERROR)
-        exit(1);
+    // if (msgType == LOG_ERROR)
+    //     exit(1);
 }
 
 #undef AudioBuffer
-#endif
+
+#endif // END DM_PLATFORM

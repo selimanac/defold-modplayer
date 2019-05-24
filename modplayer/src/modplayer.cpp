@@ -6,7 +6,7 @@
 static int buildpath(lua_State *L)
 {
     path = luaL_checkstring(L, 1);
-    dmLogInfo("Audio Path for Defold Build: %s", path);
+    dmLogInfo("Music Base Path for Defold: %s", path);
     return 0;
 }
 
@@ -14,6 +14,19 @@ static iPod *get_vals(lua_State *L)
 {
     key = luaL_checkint(L, 1);
     return ht.Get(key);
+}
+
+static int xmvolume(lua_State *L)
+{
+    vals = get_vals(L);
+    double volume = 1.0;
+    double amplification = 0.25;
+    volume = luaL_checknumber(L, 2);
+    amplification = luaL_checknumber(L, 3);
+
+    UpdateVolume(*vals->music, volume, amplification);
+
+    return 0;
 }
 
 static int unloadmusic(lua_State *L)
@@ -44,6 +57,23 @@ static int loadmusic(lua_State *L)
 
     music_count++;
 
+    music = LoadMusicStream(bundlePath);
+
+    if (music == NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        iPod music_values = {false, &music};
+        ht.Put(music_count, music_values);
+
+        lua_pushinteger(L, music_count);
+        assert(top + 1 == lua_gettop(L));
+        return 1;
+    }
+
+    /*
     music = new Music();
 
     iPod music_values = {false, music};
@@ -52,20 +82,29 @@ static int loadmusic(lua_State *L)
     iPod *vals = ht.Get(music_count);
     *vals->music = LoadMusicStream(bundlePath);
 
-    lua_pushinteger(L, music_count);
-    assert(top + 1 == lua_gettop(L));
+    if (*vals->music != NULL)
+    {
+        lua_pushinteger(L, music_count);
+        assert(top + 1 == lua_gettop(L));
+        return 1;
+    }
 
-    return 1;
+    delete vals->music;
+    ht.Erase(music_count);
+*/
+    return 0;
 }
 
 static int playmusic(lua_State *L)
 {
     vals = get_vals(L);
+
     if (!vals->is_playing)
     {
         PlayMusicStream(*vals->music);
         vals->is_playing = true;
     }
+
     return 0;
 }
 
@@ -164,21 +203,21 @@ static int musicplayed(lua_State *L)
 
 static const luaL_reg Module_methods[] =
     {
-
-        {"music_played", musicplayed},        // *
-        {"music_lenght", musiclenght},        // *
-        {"music_loop", musicloop},            // *
-        {"music_pitch", musicpitch},          // *
-        {"music_volume", musicvolume},        // *
-        {"is_music_playing", ismusicplaying}, // *
-        {"stop_music", stopmusic},            // *
-        {"resume_music", resumemusic},        // *
-        {"pause_music", pausemusic},          // *
-        {"play_music", playmusic},            // *
-        {"load_music", loadmusic},            // *
+        {"xm_volume", xmvolume},
+        {"music_played", musicplayed},
+        {"music_lenght", musiclenght},
+        {"music_loop", musicloop},
+        {"music_pitch", musicpitch},
+        {"music_volume", musicvolume},
+        {"is_music_playing", ismusicplaying},
+        {"stop_music", stopmusic},
+        {"resume_music", resumemusic},
+        {"pause_music", pausemusic},
+        {"play_music", playmusic},
+        {"load_music", loadmusic},
         {"unload_music", unloadmusic},
-        {"master_volume", mastervolume}, // *
-        {"build_path", buildpath},       // *
+        {"master_volume", mastervolume},
+        {"build_path", buildpath},
         {0, 0}};
 
 static void LuaInit(lua_State *L)
@@ -193,7 +232,6 @@ static void LuaInit(lua_State *L)
 
 dmExtension::Result AppInitializeModPlayer(dmExtension::AppParams *params)
 {
-    dmLogInfo("AppInitializeModPlayer");
     ht.Create(numelements, mem);
     InitAudioDevice();
     return dmExtension::RESULT_OK;
@@ -205,8 +243,7 @@ dmExtension::Result InitializeModPlayer(dmExtension::Params *params)
     dmLogInfo("Registered %s Extension", MODULE_NAME);
 
     path = modplayer_init();
-    dmLogInfo("Audio Path: %s", path);
-
+    dmLogInfo("Music Base Path: %s", path);
     return dmExtension::RESULT_OK;
 }
 

@@ -2,7 +2,7 @@
 
 #if defined(DM_PLATFORM_OSX) || defined(DM_PLATFORM_IOS)
 
-// This code is a paort of the DefOS: https://github.com/subsoap/defos
+// This code is a part of the DefOS: https://github.com/subsoap/defos
 
 #import <Foundation/Foundation.h>
 
