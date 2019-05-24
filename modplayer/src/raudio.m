@@ -39,10 +39,6 @@
 
 #if defined(DM_PLATFORM_OSX) || defined(DM_PLATFORM_IOS)
 
-#define RAUDIO_STANDALONE
-#define SUPPORT_FILEFORMAT_MOD
-#define SUPPORT_FILEFORMAT_XM
-
 #include "raudio.h"
 #include <stdarg.h> // Required for: va_list, va_start(), vfprintf(), va_end()
 

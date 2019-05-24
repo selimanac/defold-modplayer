@@ -39,9 +39,6 @@
 
 #if defined(DM_PLATFORM_LINUX) || defined(DM_PLATFORM_WINDOWS) || defined(DM_PLATFORM_HTML5)  || defined(DM_PLATFORM_ANDROID)  
 
-#define RAUDIO_STANDALONE
-#define SUPPORT_FILEFORMAT_MOD
-#define SUPPORT_FILEFORMAT_XM
 
 #include "raudio.h"
 #include <stdarg.h> // Required for: va_list, va_start(), vfprintf(), va_end()

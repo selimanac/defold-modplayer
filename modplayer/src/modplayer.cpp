@@ -56,16 +56,18 @@ static int loadmusic(lua_State *L)
     strcat(bundlePath, str);
 
     music_count++;
-
-    music = LoadMusicStream(bundlePath);
+    
+    music = new Music();
+    *music = LoadMusicStream(bundlePath);
 
     if (music == NULL)
     {
+        delete music;
         return 0;
     }
     else
     {
-        iPod music_values = {false, &music};
+        iPod music_values = {false, music};
         ht.Put(music_count, music_values);
 
         lua_pushinteger(L, music_count);
