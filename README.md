@@ -28,7 +28,7 @@ Open your game.project file and in the [Bundle Resources](https://www.defold.com
 
 #### 3- Create Folders
 
-Create `/res/common/assets` folders in your project root. Then you can place you .xm and .mod files here.
+Create `/res/common/assets` folders in your project root. Then you can place your .xm and .mod files here.
 
 ![Bundle](https://github.com/selimanac/defold-modplayer/blob/master/assets/screenshots/folders.png?raw=true)
 
@@ -64,7 +64,9 @@ See the [example folder](https://github.com/selimanac/defold-modplayer/tree/mast
 
 #### player.build_path(full_path:string)
 
-Only required when developing on Defold Editor. Don't set it when bundling. Passing empty string may cause crash. 
+Only required when developing on Defold Editor.   
+**Don't set it when bundling.**  
+Passing empty string may cause crash on editor build. 
 
 ```lua
 player.build_path("<FULL_PATH>/res/common/assets/") -- Set build path for working on Editor only 
