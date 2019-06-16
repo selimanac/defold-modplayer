@@ -1,6 +1,6 @@
 ![ModPlayer](https://github.com/selimanac/defold-modplayer/blob/master/assets/modplayer_logo.png?raw=true)
 
-# Defold ModPlayer
+
 
 This is chiptune player native extension for [Defold Engine](https://www.defold.com/). ModPlayer can load and play .XM and .MOD file formats. Extension supported MacOS, Windows, Linux*, Android and iOS. Html 5 is not supported yet.
 
@@ -43,7 +43,7 @@ Create `/res/common/assets` folders in your project root. Then you can place you
 	* iOS: Long run. 
 	* Windows: Short run. Tested with [Wine](https://www.winehq.org/) 
 	* Android: Short run. 
-	* Linux: I couldn't manage to have sound on VM. But app is successfully load the files and run on Debian and Ubuntu	
+	* Linux: I couldn't manage to have sound on my VMs. But app is successfully load the files and run on Debian and Ubuntu	
 	
 ## Example
 
