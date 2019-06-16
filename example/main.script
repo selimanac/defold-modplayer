@@ -4,7 +4,7 @@
 	*----------------------------------------------------------------------------*
  ]]
 local music = 0 -- Your music files ID
-local IS_DEV = true -- If you are building on Defold set it true. If you are bundling set it false
+local IS_DEV = true -- If you are building on Defold Editor then set it true. If you are bundling set it false
 local build_path = "" -- Full path for building on Defold Editor when developing: "<FULL_PATH>/res/common/assets/"
 
 local function setup()
@@ -23,7 +23,6 @@ local function setup()
 	Other Methods
 	*----------------------------------------------------------------------------*
 	]]
-
 	-- player.pause_music(music) -- Pause music playing
 	-- player.resume_music(music) -- Resume playing "paused" music
 	-- player.music_loop(music, 1) -- Set music loop count (loop repeats) NOTE: If set to -1, means infinite loop. Default is -1 (infinite)
@@ -38,14 +37,16 @@ function init(self)
 	msg.post("@render:", "clear_color", {color = vmath.vector4(33 / 255, 33 / 255, 33 / 255, 0)})
 	go.animate("/logo", "position.y", go.PLAYBACK_LOOP_PINGPONG, 300, go.EASING_INBACK, 0.5)
 
-	-- If you are building on Defold for development then provide a full path of folder which contain mod files.
+	-- If you are building on Defold Editor for development then provide a full path of folder which contain mod files.
 	-- Files must be placed in "/res/common/assets/"
 	if IS_DEV then
 		-- Just checking if path is empty. Building with empty string may cause crash!!
 		if build_path == "" then
 			return
 		end
+		
 		player.build_path(build_path) -- Set build path for Defold Editor
+		
 	-- player.build_path("/Users/selimanac/Development/Defold/Native Extension/defold-raudio/res/common/assets/")
 	end
 	setup()
