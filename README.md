@@ -9,16 +9,16 @@ This is chiptune player native extension for [Defold Engine](https://www.defold.
 
 ## Installation
 
-Installation require a few steps. 
+Installation requires a few steps. 
 
-#### Add Dependency
+#### 1- Add Dependency
 
-You can use the ModPlayer extension in your own project by adding this project as a [Defold library dependency](http://www.defold.com/manuals/libraries/).
+You can use the ModPlayer extension in your own project by adding this project as a [Defold library dependency](http://www.defold.com/manuals/libraries/).  
 Open your game.project file and in the dependencies field under project add:
 
 >https://github.com/selimanac/defold-modplayer/archive/master.zip
 
-#### Bundle Resources
+#### 2- Bundle Resources Path
 
 Open your game.project file and in the [Bundle Resources](https://www.defold.com/manuals/project-settings/) field under project add:
 
@@ -26,17 +26,17 @@ Open your game.project file and in the [Bundle Resources](https://www.defold.com
 
 ![Bundle](https://github.com/selimanac/defold-modplayer/blob/master/assets/screenshots/bundle.png?raw=true)
 
-#### Create Folders
+#### 3- Create Folders
 
-Create `/res/common/assets` folder in your project root. Then you can place you .xm and .mod files here.
+Create `/res/common/assets` folders in your project root. Then you can place you .xm and .mod files here.
 
 ![Bundle](https://github.com/selimanac/defold-modplayer/blob/master/assets/screenshots/folders.png?raw=true)
 
 
 ## Notes & Known Issues
 
-* Loading and parsing is blocker. It will block the main thread (UI thread). Since the mod files are small it is better to load them when bootstraping or at preloading stage.
-* XM files are loading much faster then mod files. (Tested with same tracker file) 
+* Loading and parsing is blocker. It will block the main thread (UI thread). Since the mod files are small it is better to load them when bootstraping or preloading. It may cause a small pause on UI.
+* Loading and parsing XM files much faster then mod files. Use XM if possible. (Tested with same tracker file) 
 * I couldn't find a way to retrive build path when developing on Defold Editor. You have to provide a full path to `player.build_path("<FULL_PATH>/res/common/assets/")` function for **working on Defold Editor only**. It doesn't required when bundling.
 
 ## Example
@@ -58,8 +58,7 @@ See the [example folder](https://github.com/selimanac/defold-modplayer/tree/mast
 
 #### player.build_path(full_path:string)
 
-Only required when developing on Defold. Don't set it when bundling. Passing empty string may cause crash.
-
+Only required when developing on Defold Editor. Don't set it when bundling. Passing empty string may cause crash. 
 
 ```lua
 player.build_path("<FULL_PATH>/res/common/assets/") -- Set build path for working on Editor only 
@@ -98,7 +97,7 @@ Pause music playing.
 player.pause_music(music) 
 ```
 
-#### resume_music(id:int)
+#### player.resume_music(id:int)
 
 Resume playing "paused" music
 
@@ -172,7 +171,7 @@ player.unload_music(music)
 
 #### player.xm_volume(id:int, volume:double, amplification:double)
 
-Only for XM files. You can change the samples volume but it may cause a clipping. You can balance it with amplification. Some bad modules may still clip. Default values; volume 1.0, amplification 0.25.
+Only for XM files. You can change the samples volume, but it may cause a clipping. You can balance it with amplification. Some bad modules may still clip. Default values; volume 1.0, amplification 0.25.
 Use it with caution!
 
 ```lua
@@ -182,9 +181,9 @@ player.xm_volume(music, 2.5, 0.15)
 ## Dependencies
 
 * [miniaudio](https://github.com/dr-soft/miniaudio) (slightly modified version)
-* [raudio](https://github.com/raysan5/raylib/blob/master/src/raudio.h) (heavily modified custom version)
+* [raudio](https://github.com/raysan5/raylib/blob/master/src/raudio.h) (heavily modified version)
 * [jar_mod](https://github.com/kd7tck/jar/blob/master/jar_mod.h) (slightly modified version)
 * [jar_xm](https://github.com/kd7tck/jar/blob/master/jar_xm.h) (slightly modified version)
 * [hashtable](https://github.com/JCash/containers/blob/master/src/jc/hashtable.h)
 
-Thanks to all Defold team for their great support. 
+**Thanks to all Defold team for their great support.**
