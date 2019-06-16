@@ -24,9 +24,13 @@ Open your game.project file and in the [Bundle Resources](https://www.defold.com
 
 >/res
 
+![Bundle](https://github.com/selimanac/defold-modplayer/blob/master/assets/screenshots/bundle.png?raw=true)
+
 ### Create Folders
 
 Create `/res/common/assets` folder in your project root. Then you can place you .xm and .mod files here.
+
+![Bundle](https://github.com/selimanac/defold-modplayer/blob/master/assets/screenshots/folders.png?raw=true)
 
 
 ## Notes & Known Issues
