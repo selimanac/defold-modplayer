@@ -187,7 +187,7 @@ player.xm_volume(music, 2.5, 0.15)
 ## Dependencies
 
 * [miniaudio](https://github.com/dr-soft/miniaudio) (slightly modified version)
-* [raudio](https://github.com/raysan5/raylib/blob/master/src/raudio.h) (heavily modified version)
+* [raudio](https://github.com/raysan5/raylib/blob/master/src/raudio.c) (heavily modified version)
 * [jar_mod](https://github.com/kd7tck/jar/blob/master/jar_mod.h) (slightly modified version)
 * [jar_xm](https://github.com/kd7tck/jar/blob/master/jar_xm.h) (slightly modified version)
 * [hashtable](https://github.com/JCash/containers/blob/master/src/jc/hashtable.h)
