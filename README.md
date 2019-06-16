@@ -65,7 +65,7 @@ See the [example folder](https://github.com/selimanac/defold-modplayer/tree/mast
 #### player.build_path(full_path:string)
 
 Only required when developing on Defold Editor.   
-! Don't set it when bundling !  
+! Don't set this when bundling !  
 Passing empty string may cause crash on editor build. 
 
 ```lua
