@@ -5,8 +5,6 @@
 #include <stdlib.h>
 #include "jc/hashtable.h"
 
-
-
 // Hash table
 struct iPod
 {

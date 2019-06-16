@@ -2,12 +2,12 @@
 
 #if defined(DM_PLATFORM_HTML5)
 
-// This code is a paort of the DefOS: https://github.com/subsoap/defos
 #include <emscripten.h>
 #include <stdlib.h>
 
 const char *modplayer_init()
 {
+
     /* 
      const char*path = (const char*)EM_ASM_INT({
         var jsString = location.href.substring(0, location.href.lastIndexOf("/"));
@@ -18,7 +18,8 @@ const char *modplayer_init()
     },0);
     */
 
-    const char*path = "";
+    //Not using the path for HTML5
+    const char *path = "";
     return path;
 }
 

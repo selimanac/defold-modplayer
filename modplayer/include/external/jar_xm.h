@@ -57,27 +57,18 @@
 #define JAR_XM_DEFENSIVE 1
 #define JAR_XM_RAMPING 1
 
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <limits.h>
 #include <string.h>
 
-
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// Android
-
-    #include "../../src/android_fopen.h"
-
-  
-
-// -------------------------------------------
+// Android fopen patch
+#include "../../src/android_fopen.h"
 
 struct jar_xm_context_s;
 typedef struct jar_xm_context_s jar_xm_context_t;

@@ -2,7 +2,7 @@
 
 #if defined(DM_PLATFORM_WINDOWS)
 
-// This code is a paort of the DefOS: https://github.com/subsoap/defos
+// This code comes from DefOS: https://github.com/subsoap/defos
 #include <Windows.h>
 
 const char *modplayer_init()

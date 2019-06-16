@@ -5,8 +5,7 @@
 
 static void patch_path()
 {
-    // #if defined(DM_PLATFORM_LINUX) || defined(DM_PLATFORM_WINDOWS) || defined(DM_PLATFORM_OSX) || defined(DM_PLATFORM_IOS)
-    // Not Android
+    // #if defined(DM_PLATFORM_LINUX) || defined(DM_PLATFORM_WINDOWS) || defined(DM_PLATFORM_OSX) || defined(DM_PLATFORM_IOS) // Waitting for Emscripten
     #ifndef DM_PLATFORM_ANDROID 
         char *bundlePath = new char[strlen(path) + strlen(asset_path) + 1];
         strcpy(bundlePath, path);

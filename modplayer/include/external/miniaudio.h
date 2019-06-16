@@ -440,6 +440,8 @@ Throughout miniaudio you will see references to different sample formats:
     s32 - Signed 32-bit integer
     f32 - 32-bit floating point
 */
+
+// MA_NO_SSE2
 #define MA_NO_SSE2
 
 #ifndef miniaudio_h

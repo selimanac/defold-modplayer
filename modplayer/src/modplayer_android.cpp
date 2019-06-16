@@ -34,7 +34,6 @@ struct ThreadAttacher
 
 const char *modplayer_init()
 {
-
     ThreadAttacher attacher;
     JNIEnv *env = attacher.env;
 

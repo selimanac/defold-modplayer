@@ -1,5 +1,8 @@
-# WIP
+# Defold ModPlayer
 ---
+
+
+
 Android için Defodl ideo player örnek.
 -> xm is faster then mod loading
 -> loading block main thread (Uı thread)

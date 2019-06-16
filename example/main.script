@@ -1,0 +1,56 @@
+--[[
+	*----------------------------------------------------------------------------*
+	More examples:  https://github.com/selimanac/defold-modplayer-examples
+	*----------------------------------------------------------------------------*
+ ]]
+local music = 0 -- Your music files ID
+local IS_DEV = true -- If you are building on Defold set it true. If you are bundling set it false
+local build_path = "" -- Full path for building on Defold when developing: "<FULL_PATH>/res/common/assets/"
+
+local function setup()
+	player.master_volume(1.0) -- Set master volume for musics ( 0.0 -> 1.0 is max level)
+
+	-- You can use subfolders related to assets folder: "musics/bb.xm"
+	music = player.load_music("bb.xm") -- Load mod file and assign it is ID
+
+	player.play_music(music) -- Play mod file
+	player.music_volume(music, 0.5) -- Set volume for music ( 0.0 -> 1.0 is max level)
+	player.music_pitch(music, 1.0) -- Set pitch for a music (1.0 is base level)
+	print("Music length: ", player.music_lenght(music)) -- Get music time length (in seconds)
+
+	--[[
+	*----------------------------------------------------------------------------*
+	Other Methods
+	*----------------------------------------------------------------------------*
+	]]
+
+	-- player.pause_music(music) -- Pause music playing
+	-- player.resume_music(music) -- Resume playing "paused" music
+	-- player.music_loop(music, 1) -- Set music loop count (loop repeats) NOTE: If set to -1, means infinite loop. Default is -1 (infinite)
+	-- print("is Playing:", player.is_music_playing(music)) -- Check if music is playing
+	-- player.stop_music(music) -- Stop music playing
+	-- player.unload_music(music) -- Unload music from memory
+	-- player.xm_volume(music, 2.5, 0.15) -- Only fo XM files. volume, amplification. Some bad modules may still clip. Default values; volume 1.0, amplification 0.25
+end
+
+function init(self)
+	-- Very fancy stuff :P
+	msg.post("@render:", "clear_color", {color = vmath.vector4(33 / 255, 33 / 255, 33 / 255, 0)})
+	go.animate("/logo", "position.y", go.PLAYBACK_LOOP_PINGPONG, 300, go.EASING_INBACK, 0.5)
+
+	-- If you are building on Defold for development then provide a full path of folder which contain mod files.
+	-- Files must be placed in "/res/common/assets/"
+	if IS_DEV then
+		-- Just checking if path is empty. Building with empty string may cause crash!!
+		if build_path == "" then
+			return
+		end
+		player.build_path(build_path) -- Set build path for Defold
+	-- player.build_path("/Users/selimanac/Development/Defold/Native Extension/defold-raudio/res/common/assets/")
+	end
+	setup()
+end
+
+function update(self, dt)
+	-- print("Played : ", player.music_played(music)) -- Get current music time played (in seconds)
+end

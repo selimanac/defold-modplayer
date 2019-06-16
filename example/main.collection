@@ -1,7 +1,7 @@
 name: "main"
 scale_along_z: 0
 embedded_instances {
-  id: "go"
+  id: "scripts"
   data: "components {\n"
   "  id: \"main\"\n"
   "  component: \"/main/main.script\"\n"
@@ -36,12 +36,12 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "go1"
+  id: "logo"
   data: "embedded_components {\n"
   "  id: \"sprite\"\n"
   "  type: \"sprite\"\n"
   "  data: \"tile_set: \\\"/assets/test.atlas\\\"\\n"
-  "default_animation: \\\"Icon_Rnd_144\\\"\\n"
+  "default_animation: \\\"modplayer_logo\\\"\\n"
   "material: \\\"/builtins/materials/sprite.material\\\"\\n"
   "blend_mode: BLEND_MODE_ALPHA\\n"
   "\"\n"
@@ -59,8 +59,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 730.0
-    y: 583.0
+    x: 640.0
+    y: 400.0
     z: 0.0
   }
   rotation {

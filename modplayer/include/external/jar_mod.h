@@ -81,25 +81,17 @@
 #ifndef INCLUDE_JAR_MOD_H
 #define INCLUDE_JAR_MOD_H
 
-
-
 #include <stdio.h>
 #include <stdlib.h>
 //#include <stdbool.h>
-
-
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// Android
+// Android fopen patch
+#include "../../src/android_fopen.h"
 
-
-    #include "../../src/android_fopen.h"
-
-
-// -------------------------------------------
 
 // Basic type
 typedef unsigned char muchar;
