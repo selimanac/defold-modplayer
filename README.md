@@ -2,7 +2,7 @@
 
 # Defold ModPlayer
 
-This is chiptune player native extension for [Defold Engine](https://www.defold.com/). ModPlayer can load and play .XM and .MOD file formats. Extension supported MacOS, Windows, Linux, Android and iOS. Html 5 is not supported yet.
+This is chiptune player native extension for [Defold Engine](https://www.defold.com/). ModPlayer can load and play .XM and .MOD file formats. Extension supported MacOS, Windows, Linux*, Android and iOS. Html 5 is not supported yet.
 
 **Caution:** This extension is not battle tested yet and you should consider it as alpha release. It may contain bugs.
 
@@ -38,6 +38,12 @@ Create `/res/common/assets` folders in your project root. Then you can place you
 * Loading and parsing is blocker. It will block the main thread (UI thread). Since the mod files are small it is better to load them when bootstraping or preloading. It may cause a small pause on UI.
 * Loading and parsing XM files much faster then mod files. Use XM if possible. (Tested with same tracker file) 
 * I couldn't find a way to retrive build path when developing on Defold Editor. You have to provide a full path to `player.build_path("<FULL_PATH>/res/common/assets/")` function for **working on Defold Editor only**. It doesn't required when bundling.
+* Different platform bundles aren't tested very well.
+	* MacOS: Long run.
+	* iOS: Long run. 
+	* Windows: Short run. Tested with [Wine](https://www.winehq.org/) 
+	* Android: Short run. 
+	* Linux: I couldn't manage to have sound on VM. But app is running on Debian and Ubuntu
 
 ## Example
 
