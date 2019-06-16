@@ -36,7 +36,7 @@ Create `/res/common/assets` folders in your project root. Then you can place you
 ## Notes & Known Issues
 
 * Loading and parsing is blocker. It will block the main thread (UI thread). Since the mod files are small it is better to load them when bootstraping or preloading. It may cause a pause on UI.
-* Loading and parsing XM files much faster then mod files. Use XM if possible. (Tested with same tracker file) 
+* Loading and parsing XM files much faster then mod files. Use XM if possible. (Tested with same tracker file as .mod and .xm) 
 * I couldn't find a way to retrive build path when developing on Defold Editor. You have to provide a full path to `player.build_path("<FULL_PATH>/res/common/assets/")` function for **working on Defold Editor only**. It doesn't required when bundling.
 * Different platform bundles aren't tested very well.
 	* MacOS: Long run.
@@ -65,7 +65,7 @@ See the [example folder](https://github.com/selimanac/defold-modplayer/tree/mast
 #### player.build_path(full_path:string)
 
 Only required when developing on Defold Editor.   
-**Don't set it when bundling.**  
+! Don't set it when bundling !
 Passing empty string may cause crash on editor build. 
 
 ```lua

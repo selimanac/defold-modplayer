@@ -3,7 +3,7 @@
 	More examples:  https://github.com/selimanac/defold-modplayer-examples
 	*----------------------------------------------------------------------------*
  ]]
-local music = 0 -- Your music files ID
+local music = 0 -- Your music file's ID
 local IS_DEV = true -- If you are building on Defold Editor then set it true. If you are bundling set it false
 local build_path = "" -- Full path for building on Defold Editor when developing: "<FULL_PATH>/res/common/assets/"
 
@@ -44,11 +44,9 @@ function init(self)
 		if build_path == "" then
 			return
 		end
-		
 		player.build_path(build_path) -- Set build path for Defold Editor
-		
-	-- player.build_path("/Users/selimanac/Development/Defold/Native Extension/defold-raudio/res/common/assets/")
 	end
+
 	setup()
 end
 
