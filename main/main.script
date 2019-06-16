@@ -1,6 +1,6 @@
 local is_paused = false
 local mini = 0
-local IS_DEV = true
+local IS_DEV = false
 
 local function unloadmusic()
 	print("unloadmusic")
@@ -16,30 +16,24 @@ local function stopmusic()
 	print("Stoppped")
 	player.stop_music(mini)
 	timer.delay(2, false, playmusic)
-end 
+end
 function init(self)
 	--profiler.enable_ui(true)
 	go.animate("/go1", "position.y", go.PLAYBACK_LOOP_PINGPONG, 50, go.EASING_INBACK, 1)
 	msg.post(".", "acquire_input_focus")
 
 	if IS_DEV then
-		player.build_path("/Users/selimanac/Development/Defold/Native Extension/defold-raudio/res/common")
+		player.build_path("/Users/selimanac/Development/Defold/Native Extension/defold-raudio/res/common/assets/")
 	end
 
-	mini = player.load_music("/audio/djb_sdm.xm")
+	mini = player.load_music("bb.xm")
 	-- local mm = player.load_music("/audio/blind_justice.mod")
 
 	player.play_music(mini)
 
-	--player.music_volume(mini, 1.0)
-	player.xm_volume(mini, 2.5, 0.15)
-	-- player.play_music(mini)
+	---	player.xm_volume(mini, 2.5, 0.15)
 
-	-- player.music_pitch(mini, 0.5)
-	-- player.music_loop(mini, 2)
-
-	-- print("Lenght: ", player.music_lenght(mini))
-	 timer.delay(2, false, stopmusic)
+	--	 timer.delay(2, false, stopmusic)
 end
 
 function update(self, dt)

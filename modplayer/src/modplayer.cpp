@@ -3,6 +3,19 @@
 
 #include "modplayer_private.h"
 
+static void patch_path()
+{
+    // #if defined(DM_PLATFORM_LINUX) || defined(DM_PLATFORM_WINDOWS) || defined(DM_PLATFORM_OSX) || defined(DM_PLATFORM_IOS)
+    // Not Android
+    #ifndef DM_PLATFORM_ANDROID 
+        char *bundlePath = new char[strlen(path) + strlen(asset_path) + 1];
+        strcpy(bundlePath, path);
+        strcat(bundlePath, asset_path);
+        path = bundlePath;
+        dmLogInfo("Patched: %s", path);
+    #endif
+}
+
 static int buildpath(lua_State *L)
 {
     path = luaL_checkstring(L, 1);
@@ -56,10 +69,8 @@ static int loadmusic(lua_State *L)
     strcat(bundlePath, str);
 
     music_count++;
-    
     music = new Music();
     *music = LoadMusicStream(bundlePath);
-
     if (music == NULL)
     {
         delete music;
@@ -75,25 +86,6 @@ static int loadmusic(lua_State *L)
         return 1;
     }
 
-    /*
-    music = new Music();
-
-    iPod music_values = {false, music};
-    ht.Put(music_count, music_values);
-
-    iPod *vals = ht.Get(music_count);
-    *vals->music = LoadMusicStream(bundlePath);
-
-    if (*vals->music != NULL)
-    {
-        lua_pushinteger(L, music_count);
-        assert(top + 1 == lua_gettop(L));
-        return 1;
-    }
-
-    delete vals->music;
-    ht.Erase(music_count);
-*/
     return 0;
 }
 
@@ -245,6 +237,7 @@ dmExtension::Result InitializeModPlayer(dmExtension::Params *params)
     dmLogInfo("Registered %s Extension", MODULE_NAME);
 
     path = modplayer_init();
+    patch_path();
     dmLogInfo("Music Base Path: %s", path);
     return dmExtension::RESULT_OK;
 }

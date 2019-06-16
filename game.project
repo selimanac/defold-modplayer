@@ -1,6 +1,6 @@
 [project]
 title = defold-modplayer
-version = 0.4
+version = 0.5
 bundle_resources = /res
 
 [bootstrap]

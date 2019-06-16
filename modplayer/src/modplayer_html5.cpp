@@ -8,7 +8,7 @@
 
 const char *modplayer_init()
 {
-    
+    /* 
      const char*path = (const char*)EM_ASM_INT({
         var jsString = location.href.substring(0, location.href.lastIndexOf("/"));
         var lengthBytes = lengthBytesUTF8(jsString)+1; // 'jsString.length' would return the length of the string as UTF-16 units, but Emscripten C strings operate as UTF-8.
@@ -16,6 +16,9 @@ const char *modplayer_init()
         stringToUTF8(jsString, stringOnWasmHeap, lengthBytes+1);
         return stringOnWasmHeap;
     },0);
+    */
+
+    const char*path = "";
     return path;
 }
 

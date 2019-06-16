@@ -9,4 +9,5 @@ Thumbs.db
 .cproject
 .vscode
 /.vscode
+FS_build.txt
 builtins

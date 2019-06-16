@@ -32,5 +32,6 @@ static int key = 0;
 
 //Paths
 static const char *path;
+static const char *asset_path = "/assets/";
 
 extern const char *modplayer_init();

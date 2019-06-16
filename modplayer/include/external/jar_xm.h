@@ -48,6 +48,7 @@
 // License, Version 2, as published by Sam Hocevar. See
 // http://sam.zoy.org/wtfpl/COPYING for more details.
 
+
 #ifndef INCLUDE_JAR_XM_H
 #define INCLUDE_JAR_XM_H
 
@@ -55,6 +56,8 @@
 #define JAR_XM_LINEAR_INTERPOLATION 1 // speed increase with decrease in quality
 #define JAR_XM_DEFENSIVE 1
 #define JAR_XM_RAMPING 1
+
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -64,10 +67,17 @@
 
 
 
-//-------------------------------------------------------------------------------
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+// Android
+
+    #include "../../src/android_fopen.h"
+
+  
+
+// -------------------------------------------
 
 struct jar_xm_context_s;
 typedef struct jar_xm_context_s jar_xm_context_t;
