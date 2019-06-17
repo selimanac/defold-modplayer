@@ -44,6 +44,7 @@ Create `/res/common/assets` folders in your project root. Then you can place you
 	* Windows: Short run. Tested with [Wine](https://www.winehq.org/) 
 	* Android: Short run. 
 	* Linux: I couldn't manage to have sound on my VMs. But app is successfully load the files and run on Debian and Ubuntu	
+* Hashtable is limited to 10 elements. I think it is more than enough. It is a bad practice to store or play more than two music files at the same time. 
 	
 ## Example
 
