@@ -2,7 +2,7 @@
 
 #if defined(DM_PLATFORM_LINUX)
 
-// This code comes from DefOS: https://github.com/subsoap/defos
+// This code is from DefOS: https://github.com/subsoap/defos
 
 #include <stdlib.h>
 #include <unistd.h>

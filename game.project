@@ -2,7 +2,6 @@
 title = defold-modplayer
 version = 0.6
 bundle_resources = /res
-bundle_exclude_resources = /assets/screenshots
 
 [bootstrap]
 main_collection = /example/main.collectionc

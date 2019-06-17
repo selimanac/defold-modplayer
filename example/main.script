@@ -42,6 +42,7 @@ function init(self)
 	if IS_DEV then
 		-- Just checking if path is empty. Building with empty string may cause crash!!
 		if build_path == "" then
+			print("WARNING: Build Path is empty.")
 			return
 		end
 		player.build_path(build_path) -- Set build path for Defold Editor
