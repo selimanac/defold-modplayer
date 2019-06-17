@@ -37,6 +37,7 @@ Create `/res/common/assets` folders in your project root. Then you can place you
 
 * Loading and parsing is blocker. It will block the main thread (UI thread). Since the mod files are small it is better to load them when bootstraping or preloading. It may cause a pause on UI.
 * Loading and parsing XM files much faster then mod files. Use XM if possible. (Tested with same tracker file as .mod and .xm) 
+* Not %100 compatible with every MOD or XM files. There is no such thing actually
 * I couldn't find a way to retrive build path when developing on Defold Editor. You have to provide a full path to `player.build_path("<FULL_PATH>/res/common/assets/")` function for **working on Defold Editor only**. It doesn't required when bundling.
 * Different platform bundles aren't tested very well.
 	* MacOS: Long run.
@@ -70,7 +71,7 @@ Only required when developing on Defold Editor.
 Passing empty string may cause crash on editor build. 
 
 ```lua
-player.build_path("<FULL_PATH>/res/common/assets/") -- Set build path for working on Editor only 
+player.build_path("<FULL_PATH>/res/common/assets/") -- Set build path when working on Editor only 
 ```
 
 #### player.master_volume(volume:double)
