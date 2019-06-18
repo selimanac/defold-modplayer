@@ -699,6 +699,17 @@ void UntrackAudioBuffer(AudioBuffer *audioBuffer)
 //----------------------------------------------------------------------------------
 // Module Functions Definition - Music loading and stream playing (.OGG)
 //----------------------------------------------------------------------------------
+void jar_xm_reset(jar_xm_context_t* ctx)
+{
+    ctx->current_table_index = 0; //ctx->module.restart_position;
+    ctx->current_row = 0;
+    for (uint16_t i = 0; i < jar_xm_get_number_of_channels(ctx); i++)
+    {
+        jar_xm_cut_note(&ctx->channels[i]);
+         jar_xm_key_off(&ctx->channels[i]);
+      
+    }
+}
 
 // Load music stream from file
 Music LoadMusicStream(const char *fileName)
@@ -721,7 +732,7 @@ Music LoadMusicStream(const char *fileName)
             music->samplesLeft = music->totalSamples;
             music->ctxType = MUSIC_MODULE_XM;
             music->loopCount = -1; // Infinite loop by default
-
+            jar_xm_reset(music->ctxXm);
             TraceLog(LOG_INFO, "[%s] XM number of samples: %i", fileName, music->totalSamples);
             TraceLog(LOG_INFO, "[%s] XM track length: %11.6f sec", fileName, (float)music->totalSamples / 48000.0f);
         }
@@ -858,26 +869,7 @@ void ResumeMusicStream(Music music)
         ResumeAudioStream(music->stream);
 }
 
-// Patch for Xm Replay
-void jar_xm_reset(jar_xm_context_t *ctx)
-{
-    for (uint16_t i = 0; i < jar_xm_get_number_of_channels(ctx); i++)
-    {
 
-        jar_xm_cut_note(&ctx->channels[i]);
-    }
-    ctx->current_row = 0;
-    ctx->current_table_index = ctx->module.restart_position;
-    ctx->current_tick = 0;
-
-    /*  ctx->current_table_index = 0;
-    ctx->current_row = 0;
-    ctx->position_jump = true;
-    ctx->pattern_break = true;
-    ctx->jump_row = 0;
-    jar_xm_post_pattern_change(ctx);
-    */
-}
 
 // Stop music playing (close stream)
 // TODO: To clear a buffer, make sure they have been already processed!
