@@ -49,7 +49,10 @@ Create `/res/common/assets` folders in your project root. Then you can place you
 	
 ## Example
 
-See the [example folder](https://github.com/selimanac/defold-modplayer/tree/master/example) for simple usage. For more examples: [https://github.com/selimanac/defold-modplayer-examples](https://github.com/selimanac/defold-modplayer-examples)
+See the [example folder](https://github.com/selimanac/defold-modplayer/tree/master/example) for simple usage.   
+For more examples: [https://github.com/selimanac/defold-modplayer-examples](https://github.com/selimanac/defold-modplayer-examples)  
+Nanowar game example: [https://github.com/selimanac/nanowar-modplayer](https://github.com/selimanac/nanowar-modplayer)
+
 
 ```lua
 
