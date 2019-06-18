@@ -2,7 +2,7 @@
 
 
 
-This is chiptune player native extension for [Defold Engine](https://www.defold.com/). ModPlayer can load and play .XM and .MOD file formats. Extension supported MacOS, Windows, Linux*, Android and iOS. Html 5 is not supported yet.
+This is chiptune player native extension for [Defold Engine](https://www.defold.com/). ModPlayer can load and play .XM and .MOD file formats. Extension supported MacOS, Windows, Linux*, Android and iOS. [Html 5 is not supported yet.](https://forum.defold.com/t/reading-files-from-res-common-folder-with-emscripten/55056)
 
 **Caution:** This extension is not battle tested yet and you should consider it as alpha release. It may contain bugs.
 
