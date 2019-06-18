@@ -156,7 +156,7 @@ player.music_loop(music, 1)
 
 #### player.is_music_playing(id:int)
 
-Check if music is playing
+Check if music is playing. Also returns `false` if music is not loaded or unloaded.
 
 ```lua
 print("is Playing:", player.is_music_playing(music)) 
