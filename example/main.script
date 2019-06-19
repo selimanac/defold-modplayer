@@ -11,7 +11,7 @@ local function setup()
 	player.master_volume(1.0) -- Set master volume for musics ( 0.0 -> 1.0 is max level)
 
 	-- You can use subfolders related to assets folder: "musics/bb.xm"
-	music = player.load_music("test_8.xm") -- Load mod file and assign it is ID
+	music = player.load_music("test_1.xm") -- Load mod file and assign it is ID
 
 	player.play_music(music) -- Play mod file
 	player.music_volume(music, 1.0) -- Set volume for music ( 0.0 -> 1.0 is max level)
