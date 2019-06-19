@@ -2,7 +2,7 @@
 
 
 
-This is chiptune player native extension for [Defold Engine](https://www.defold.com/). ModPlayer can load and play .XM and .MOD file formats. Extension supported MacOS, Windows, Linux*, Android ,iOS and HTML 5.  
+This is chiptune player native extension for [Defold Engine](https://www.defold.com/). ModPlayer can load and play .XM and .MOD file formats. Extension supported MacOS, Windows, Linux*, Android ,iOS and [HTML5](#html5-bundle).  
 
 **Caution:** This extension is not battle tested yet and you should consider it as alpha release. It may contain bugs.
 
@@ -46,7 +46,7 @@ Create `/res/common/assets` folders in your project root. Then you can place you
 	* Android: Short run. 
 	* Linux: I couldn't manage to have sound on my VMs. But app is successfully load the files and run on Debian and Ubuntu	
 * Hashtable is limited to 10 elements. I think it is more than enough. It is a bad practice to load or play more than two music files at the same time. 
-* Currently it is not possible to Build HTML 5 on the Defold Editor with mod music(You can build it but can't load the the musics).
+* Currently it is not possible to Build HTML 5 on the Defold Editor with mod music. You can build it for testing, but can't load the the musics.
 	
 ## Example
 
@@ -66,17 +66,17 @@ Nanowar game example: [https://github.com/selimanac/nanowar-modplayer](https://g
 	
 ```
 
-## HTML 5 Bundle
+## HTML5 Bundle
 
-Unfortunately it is not possible to build HTML 5 on the Defold Editor with mod music(You can build it but can't load the the musics). But you can bundle as HTML 5 from the Editor wid mod music.  
+Unfortunately it is not possible to build HTML5 on the Defold Editor with mod music(You can build it for testing, but can't load the the musics). But you can bundle as HTML 5 from the Editor with mod music.
 
-Bundling for HTML 5 is require editing of `archive_files.json` file manually. [More info is here.](https://forum.defold.com/t/reading-files-from-res-common-folder-with-emscripten/55056). 
+Bundling for HTML5 is require editing of `archive_files.json` file manually. [More info is here.](https://forum.defold.com/t/reading-files-from-res-common-folder-with-emscripten/55056). 
 
-* Bundle you project as usual by using `Project > Bundle > HTML 5` from the Defold Editor
+* Bundle you project as usual by using `Project > Bundle > HTML5` from the Defold Editor
 * Open `archive/archive_files.json` file from bundled folder 
-* Add your music files into `archive_files.json`file with their name and size.
+* Add your music files into `archive_files.json` file with their names and sizes.
 
-```json
+```
 {
 	"name": "level_1.xm",	<- Name of your file for loading 
 		"size": 42940,		<- Actual size of the file (bytes)		
