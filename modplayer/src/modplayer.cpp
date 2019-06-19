@@ -5,7 +5,7 @@
 
 static void patch_path()
 {
-#if defined(DM_PLATFORM_LINUX) || defined(DM_PLATFORM_WINDOWS) || defined(DM_PLATFORM_OSX) || defined(DM_PLATFORM_IOS)  // #ifndef DM_PLATFORM_ANDROID
+#if defined(DM_PLATFORM_LINUX) || defined(DM_PLATFORM_WINDOWS) || defined(DM_PLATFORM_OSX) || defined(DM_PLATFORM_IOS) // #ifndef DM_PLATFORM_ANDROID
     char *bundlePath = new char[strlen(path) + strlen(asset_path) + 1];
     strcpy(bundlePath, path);
     strcat(bundlePath, asset_path);
@@ -92,6 +92,15 @@ static int loadmusic(lua_State *L)
     char *bundlePath = new char[strlen(path) + strlen(str) + 1];
     strcpy(bundlePath, path);
     strcat(bundlePath, str);
+
+#if defined(DM_PLATFORM_HTML5)
+    std::regex pattern(".*(?=\/)[/]");
+    std::string result = std::regex_replace(bundlePath, pattern, "");
+    char *cstr = new char[result.length() + 1];
+    strcpy(cstr, result.c_str());
+    bundlePath = cstr;
+    dmLogInfo("File for HTML: %s", bundlePath);
+#endif
 
     music_count++;
     music = new Music();

@@ -3,6 +3,7 @@
 #include <dmsdk/sdk.h>
 #include "raudio.h" 
 #include <stdlib.h>
+#include <regex>
 #include "jc/hashtable.h"
 
 // Hash table
