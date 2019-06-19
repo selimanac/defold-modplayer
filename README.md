@@ -39,7 +39,7 @@ Create `/res/common/assets` folders in your project root. Then you can place you
 * Loading and parsing XM files much faster then mod files. Use XM if possible. (Tested with same tracker file as .mod and .xm) 
 * Not %100 compatible with every MOD or XM files. 
 * I couldn't find a way to retrive build path when developing on Defold Editor. You have to provide a full path to `player.build_path("<FULL_PATH>/res/common/assets/")` function for **working on Defold Editor only**. It doesn't required when bundling.
-* Different platform bundles aren't tested very well.
+* Different platform bundles didn't tested very well.
 	* MacOS: Long run.
 	* iOS: Long run. 
 	* Windows: Short run. Tested with [Wine](https://www.winehq.org/) 
