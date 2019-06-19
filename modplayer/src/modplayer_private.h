@@ -1,9 +1,13 @@
 #pragma once
 
 #include <dmsdk/sdk.h>
-#include "raudio.h" 
+#include "raudio.h"
 #include <stdlib.h>
+
+#if defined(DM_PLATFORM_HTML5)
 #include <regex>
+#endif
+
 #include "jc/hashtable.h"
 
 // Hash table
@@ -25,7 +29,7 @@ static hashtable_t::Iterator itend = ht.End();
 
 // Music
 static Music *music;
-static iPod* vals;
+static iPod *vals;
 static int music_count = 0;
 static int key = 0;
 
