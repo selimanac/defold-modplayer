@@ -70,18 +70,19 @@ Nanowar game example: [https://github.com/selimanac/nanowar-modplayer](https://g
 
 Unfortunately, it is not possible to build HTML5 on the Defold Editor with mod music(You can build it for testing, but can't load the musics). But you can bundle as HTML5 from the Editor with mod music.
 
+Bundling for HTML5 is require of editing `archive_files.json` file. [More info about the issue is here.](https://forum.defold.com/t/reading-files-from-res-common-folder-with-emscripten/55056).   
+You can use a script or you can edit it manually.
+
 ### - Python Script
 
 I wrote a small [python script](https://github.com/selimanac/modplayer-html5-example/blob/master/mod_file_parser.py) for updating `archive_files.json`file with music files data. You can find it here: https://github.com/selimanac/modplayer-html5-example/blob/master/mod_file_parser.py
 
 * Put [this](https://github.com/selimanac/modplayer-html5-example/blob/master/mod_file_parser.py) file alongside the index.html in the root of your HTML5 Bundle
-* Run it with /asset/ path  
+* Run it with /assets/ path  
     `> python mod_file_parser.py /assets/audio`
 * It will update the /archive/archive_files.json file with music data
 
 ### - Manual
-
-Bundling for HTML5 is require editing of `archive_files.json` file manually. [More info about the issue is here.](https://forum.defold.com/t/reading-files-from-res-common-folder-with-emscripten/55056). 
 
 * Bundle you project as usual by using `Project > Bundle > HTML5` from the Defold Editor
 * Open `archive/archive_files.json` file from bundled folder 
