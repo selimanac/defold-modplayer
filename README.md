@@ -1,4 +1,4 @@
-![ModPlayer](https://github.com/selimanac/defold-modplayer/blob/master/assets/modplayer_logo.png?raw=true)
+![ModPlayer](https://github.com/selimanac/defold-modplayer/blob/master/assets/screenshots/defoldheader.png?raw=true)
 
 
 
