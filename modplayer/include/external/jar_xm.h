@@ -68,7 +68,7 @@ extern "C" {
 #endif
 
 // Android fopen patch
-#include "../../src/android_fopen.h"
+#include "android_fopen.h"
 
 struct jar_xm_context_s;
 typedef struct jar_xm_context_s jar_xm_context_t;

@@ -30,7 +30,7 @@ static int buildpath(lua_State *L)
     }
     else
     {
-        dmLogError("build_path cannot be empty.");
+        dmLogError("build_path cannot be empty. Please provide a full path of your project folder when building on Defold Editor.");
         return 0;
     }
 }

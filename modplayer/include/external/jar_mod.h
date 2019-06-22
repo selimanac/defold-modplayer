@@ -90,7 +90,7 @@ extern "C" {
 #endif
 
 // Android fopen patch
-#include "../../src/android_fopen.h"
+#include "android_fopen.h"
 
 
 // Basic type
