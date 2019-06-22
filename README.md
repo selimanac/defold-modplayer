@@ -124,6 +124,15 @@ Windows: C:\your_project_path\res\common\assets\
 *nix: /Users/your_name/your_project_path/res/common/assets/  
 `player.build_path("/Users/your_name/your_project_path/res/common/assets/")`
 
+We don't need it when bundling:
+
+```lua
+local is_development = true -- If you are building on Defold Editor then set it true. If you are bundling set it false
+if is_development then
+		player.build_path("<FULL_PATH>/res/common/assets/") -- Set build path for Defold Editor
+end
+```
+
 #### player.master_volume(volume:double)
 
 Set master volume for musics ( 0.0 -> 1.0 is max level)
