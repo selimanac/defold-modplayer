@@ -116,8 +116,8 @@ player.build_path("<FULL_PATH>/res/common/assets/") -- Set build path when worki
 ```
 
 ##### Examples  
-Windows: C:\your_project_path\res\common\assets\   
-`player.build_path("C:\your_project_path\res\common\assets\")`
+Windows: C:/your_project_path/res/common/assets/   
+`player.build_path("C:/your_project_path/res/common/assets/")`
  
 *nix: /Users/your_name/your_project_path/res/common/assets/  
 `player.build_path("/Users/your_name/your_project_path/res/common/assets/")`
