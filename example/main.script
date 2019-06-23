@@ -22,7 +22,7 @@ player.build_path("/Users/user_name/your_project_path/res/common/assets/")
 local function setup()
 	player.master_volume(1.0) -- Set master volume for musics ( 0.0 -> 1.0 is max level)
 
-	-- You can use subfolders related to assets folder: "musics/bb.xm"
+	-- You can use subfolders related to assets folder: "musics/test_1.xm"
 	music = player.load_music("test_1.xm") -- Load mod file and assign it is ID
 
 	player.play_music(music) -- Play mod file
