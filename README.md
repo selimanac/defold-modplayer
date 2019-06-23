@@ -107,12 +107,12 @@ Example HTML5 project is [here](https://github.com/selimanac/modplayer-html5-exa
 
 #### player.build_path(full_path:string)
 
-Only required when developing on Defold Editor. `<FULL_PATH>` ([absolute path](https://en.wikipedia.org/wiki/Path_(computing))) is the full path of your project folder/directory.    
-! Don't set this when bundling !  
+Only required when developing on Defold Editor. `<FULL_PATH>` ([absolute path](https://en.wikipedia.org/wiki/Path_(computing))) is the full path of your project folder/directory. Don't forget to add **trailing `/`**.   
+**! Don't set this when bundling !**
 
 
 ```lua
-player.build_path("<FULL_PATH>/res/common/assets/") -- Set build path when working on Editor only 
+player.build_path("<FULL_PATH>/res/common/assets/") -- Set build path when working on Editor only s
 ```
 
 ##### Examples  

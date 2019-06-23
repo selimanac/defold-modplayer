@@ -4,9 +4,21 @@
 	*----------------------------------------------------------------------------*
  ]]
 local music = 0 -- Your music file's ID
-local is_development = true -- If you are building on Defold Editor then set it true. If you are bundling set it false
+local is_development = true -- If you are building on Defold Editor then set it true. If you are bundling set it false.
 local build_path = "" -- Full path for building on Defold Editor when developing: "<FULL_PATH>/res/common/assets/"
 
+--[[ 
+
+-- Examples -- 
+Don’t forget to add trailing "/"
+
+Windows: 
+player.build_path("C:/Users/user_name/your_project_path/res/common/assets/")
+
+*nix: 
+player.build_path("/Users/user_name/your_project_path/res/common/assets/")
+
+ ]]
 local function setup()
 	player.master_volume(1.0) -- Set master volume for musics ( 0.0 -> 1.0 is max level)
 
